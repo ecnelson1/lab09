@@ -7,56 +7,61 @@ describe('lab09 routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
-  it('creates a new warrior', async () => {
+
+  it('creates a new warrior', async() => {
     const res = await request(app)
-    .post('api/v1/warriors')
+    .post('/api/v1/warrior')
     .send({title: 'Samurai', style: 'Sword Fighter', weapons: 'Samurai Sword'});
     expect(res.body).toEqual({
-      id: 1,
+      id: '2',
       title: 'Samurai',
       style: 'Sword Fighter',
       weapons: 'Samurai Sword'
     });
   });
+
   it('gets all warriors in the database', async() => {
     const res = await request(app)
-    .get('api/v1/warriors');
-    expect(res.body).toEqual({
-      id: 1,
+    .get('/api/v1/warrior');
+    expect(res.body).toEqual([{
+      id: '1',
       title: 'Samurai',
       style: 'Sword Fighter',
       weapons: 'Samurai Sword'
-    });
+    }]);
   });
+
   it('gets all warriors by id', async() => {
     const res = await request(app)
-    .get('api/v1/warriors/1');
+    .get('/api/v1/warrior/1');
     expect(res.body).toEqual({
-      id: 1,
+      id: '1',
       title: 'Samurai',
       style: 'Sword Fighter',
       weapons: 'Samurai Sword'
     });
   });
+
   it('updates a warrior in the database', async() => {
     const res = await request(app)
-    .put('api/v1/warriors/1')
+    .put('/api/v1/warrior/1')
     .send({title: 'Ninja', style: 'Stealth', weapons: 'Throwing Stars'});
     expect(res.body).toEqual({
-       id: 1,
+       id: '1',
       title: 'Ninja',
       style: 'Stealth',
-      weapons: 'throwing Stars'
+      weapons: 'Throwing Stars'
     });
   });
+
   it('deletes a warrior from the database', async() =>{
     const res = await request(app)
-    .delete('api/v1/warriors/1');
+    .delete('/api/v1/warrior/1');
     expect(res.body).toEqual({
-       id: 1,
-      title: 'Ninja',
-      style: 'Stealth',
-      weapons: 'throwing Stars'
+       id: '1',
+      title: 'Samurai',
+      style: 'Sword Fighter',
+      weapons: 'Samurai Sword'
     }); //return shows deleted item 
   });
 });
